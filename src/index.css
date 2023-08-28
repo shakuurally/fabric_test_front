@@ -1,0 +1,25 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+.tab-item-animate {
+  position: absolute;
+  top: 6px;
+  left: 6px;
+  width: calc(100% - 12px);
+  height: 32px;
+  transform-origin: 0 0;
+  transition: transform 0.25s;
+}
+
+.tabs .tabs-item:first-child.active ~ .tab-item-animate {
+  transform: translateX(0) scaleX(0.33); /* Adjust the scaleX value for the first button */
+}
+
+.tabs .tabs-item:nth-child(2).active ~ .tab-item-animate {
+  transform: translateX(33.33%) scaleX(0.33); /* Adjust the scaleX value and translateX for the second button */
+}
+
+.tabs .tabs-item:nth-child(3).active ~ .tab-item-animate {
+  transform: translateX(66.66%) scaleX(0.33); /* Adjust the scaleX value and translateX for the third button */
+}
