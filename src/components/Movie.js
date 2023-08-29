@@ -5,7 +5,7 @@ import Grid from "./Loaders/Grid";
 import { motion } from "framer-motion";
 
 const MovieData = () => {
-  const [data, setData] = useState([]);
+  const [data, setData] = useState(null); // Change the initial state to null or {}
   const [loading, setLoading] = useState(false);
   const [activeButton, setActiveButton] = useState("login");
   const [filterTitle, setFilterTitle] = useState("");
@@ -16,8 +16,8 @@ const MovieData = () => {
       setLoading(true);
       const response = await fetch(url);
       const result = await response.json();
-      console.log(result);
-      setData(result.Search || []);
+      console.log(result.data);
+      setData(result.data || null); // Change to null or {}
       setLoading(false);
     } catch (error) {
       console.error("Error fetching data:", error);
@@ -27,12 +27,14 @@ const MovieData = () => {
 
   const handleButtonClick = (button) => {
     if (button === "login") {
-      fetchData("http://www.omdbapi.com/?s=Matrix&apikey=720c3666");
+      fetchData("https://fabric.up.railway.app/api/movies/fetch-matrix");
     } else if (button === "signup") {
-      fetchData("http://www.omdbapi.com/?s=Matrix%20Reloaded&apikey=720c3666");
+      fetchData(
+        "https://fabric.up.railway.app/api/movies/fetch-matrix-reloaded"
+      );
     } else if (button === "premium") {
       fetchData(
-        "http://www.omdbapi.com/?s=Matrix%20Revolutions&apikey=720c3666"
+        "https://fabric.up.railway.app/api/movies/fetch-matrix-revolutions"
       );
     }
     setActiveButton(button);
@@ -41,13 +43,18 @@ const MovieData = () => {
   useEffect(() => {
     handleButtonClick("login");
   }, []);
+  const filteredData =
+    data &&
+    data.filter((movie) => {
+      return (
+        movie.title &&
+        movie.Type &&
+        movie.title.toLowerCase().includes(filterTitle.toLowerCase()) &&
+        movie.Type.toLowerCase().includes(filterType.toLowerCase())
+      );
+    });
 
-  const filteredData = data.filter((movie) => {
-    return (
-      movie.Title.toLowerCase().includes(filterTitle.toLowerCase()) &&
-      movie.Type.toLowerCase().includes(filterType.toLowerCase())
-    );
-  });
+  console.log("filteredData:", filteredData);
 
   return (
     <div>
@@ -131,7 +138,7 @@ const MovieData = () => {
         <div className="py-8 px-4 sm:px-6 lg:px-8">
           {loading ? (
             <Grid />
-          ) : filteredData.length === 0 ? (
+          ) : filteredData && filteredData.length === 0 ? (
             <p className="items-center flex justify-center h-80">
               No data found.........🙃
             </p>
