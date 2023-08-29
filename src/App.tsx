@@ -1,6 +1,6 @@
 import { Provider } from 'react-redux';
-import MovieData from './components/Movie';
-import store from './store';
+import { MovieData } from './components/Movie';
+import { store } from './store';
 
 function App() {
   return (
