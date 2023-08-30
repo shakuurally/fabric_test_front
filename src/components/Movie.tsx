@@ -58,12 +58,9 @@ export const MovieData: React.FC = () => {
     handleButtonClick("login");
   }, []);
 
-  // Function to filter data
-  // Function to filter data
+  // filter data
   const filterData = (data: Movie[] | null) => {
     if (!data) return null;
-
-    // Check if either filterTitle or filterType is not empty
     if (state.filterTitle || state.filterType) {
       return data.filter((movie: { title: string; Type: string; }) => {
         return (
@@ -74,7 +71,6 @@ export const MovieData: React.FC = () => {
         );
       });
     } else {
-      // If both filterTitle and filterType are empty, return the full data
       return data;
     }
   };
