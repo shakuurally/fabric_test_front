@@ -7,6 +7,7 @@ export const FilterComponent: React.FC<{
     setFilterTitle: (value: string) => void;
     setFilterType: (value: string) => void;
 }> = ({ filterTitle, filterType, setFilterTitle, setFilterType }) => {
+
     return (
         <div className="flex flex-col space-y-4 py-10">
             <div className="group relative flex focus:outline-none">

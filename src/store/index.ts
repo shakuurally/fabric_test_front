@@ -1,14 +1,21 @@
-// store.ts
 import { configureStore } from "@reduxjs/toolkit";
-import { movieApi } from "./movieApi";
+import { persistStore, persistReducer } from "redux-persist";
+import storage from "redux-persist/lib/storage"; // defaults to localStorage for web
+import movieReducer from "./movieSlice";
 
-export const store = configureStore({
+const persistConfig = {
+  key: "root",
+  storage,
+};
+
+const persistedReducer = persistReducer(persistConfig, movieReducer);
+
+const store = configureStore({
   reducer: {
-    [movieApi.reducerPath]: movieApi.reducer,
+    movie: persistedReducer, // Use the persistedReducer
   },
-  middleware: (getDefaultMiddleware) =>
-    getDefaultMiddleware().concat(movieApi.middleware),
 });
 
-export type RootState = ReturnType<typeof store.getState>;
-export type AppDispatch = typeof store.dispatch;
+const persistor = persistStore(store);
+
+export { store, persistor };

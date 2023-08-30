@@ -4,12 +4,10 @@ import { FilterComponent } from "./common/Filter";
 import { ButtonGroup } from "./common/Buttons";
 import { Movie } from "../interface";
 import Loader from "./common/Grid";
+import { useDispatch, useSelector } from "react-redux";
+import { setActiveButton, setData, setLoading } from "../store/movieSlice";
 
-// Define types for the component's state
 interface MovieDataState {
-  data: Array<Movie> | null;
-  loading: boolean;
-  activeButton?: string;
   filterTitle: string;
   filterType: string;
 }
@@ -17,31 +15,29 @@ interface MovieDataState {
 export const MovieData: React.FC = () => {
   // Initialize the state
   const [state, setState] = useState<MovieDataState>({
-    data: null,
-    loading: false,
-    activeButton: "login",
     filterTitle: "",
     filterType: "",
   });
+  const data = useSelector((state: any) => state.movie);
 
-  // Function to fetch data
+  const dispatch = useDispatch();
   const fetchData = async (url: string, button: string) => {
     try {
-      setState({ ...state, loading: true });
+      dispatch(setLoading(true));
       const response = await fetch(url);
       const result = await response.json();
-      console.log(result.data);
-      setState({ ...state, data: result.data || null, loading: false, activeButton: button });
+      dispatch(setData(result.data || null));
+      dispatch(setLoading(false));
+      dispatch(setActiveButton(button));
+
     } catch (error) {
       console.error("Error fetching data:", error);
-      setState({ ...state, loading: false });
     }
   };
 
   // Function to handle button clicks
   const handleButtonClick = (button: string) => {
     let url = "";
-
     switch (button) {
       case "login":
         url = "https://fabric.up.railway.app/api/movies/fetch-matrix";
@@ -58,8 +54,6 @@ export const MovieData: React.FC = () => {
 
     fetchData(url, button);
   };
-
-  // Fetch data on component mount
   useEffect(() => {
     handleButtonClick("login");
   }, []);
@@ -68,7 +62,7 @@ export const MovieData: React.FC = () => {
   const filterData = (data: Movie[] | null) => {
     if (!data) return null;
 
-    return data.filter((movie) => {
+    return data.filter((movie: { title: string; Type: string; }) => {
       return (
         movie.title &&
         movie.Type &&
@@ -79,7 +73,7 @@ export const MovieData: React.FC = () => {
   };
 
   // Update the filtered data whenever filter inputs change or data source changes
-  const filteredData = filterData(state.data);
+  const filteredData = filterData(state.filterTitle || state.filterType ? data.data : data.data);
 
   return (
     <div>
@@ -88,22 +82,30 @@ export const MovieData: React.FC = () => {
         <FilterComponent
           filterTitle={state.filterTitle}
           filterType={state.filterType}
-          setFilterTitle={(value) =>
-            setState({ ...state, filterTitle: value })
-          }
-          setFilterType={(value) =>
-            setState({ ...state, filterType: value })
-          }
+          setFilterTitle={(value) => {
+            // Update filterTitle using functional update
+            setState((prevState) => ({
+              ...prevState,
+              filterTitle: value
+            }));
+          }}
+          setFilterType={(value) => {
+            // Update filterType using functional update
+            setState((prevState) => ({
+              ...prevState,
+              filterType: value
+            }));
+          }}
         />
 
         <div className={`relative  mx-auto max-w-6xl bg-white rounded `}>
           <ButtonGroup
-            activeButton={state.activeButton}
+            activeButton={data.activeButton}
             handleButtonClick={handleButtonClick}
           />
 
           <div className="py-8 px-4 sm:px-6 lg:px-8">
-            {state.loading ? (
+            {data.loading ? (
               <Loader />
             ) : filteredData && filteredData.length === 0 ? (
               <p className="items-center flex justify-center h-80">
@@ -112,8 +114,8 @@ export const MovieData: React.FC = () => {
             ) : (
               <MovieList
                 data={filteredData}
-                loading={state.loading}
-                activeButton={state.activeButton}
+                loading={data.loading}
+                activeButton={data.activeButton}
               />
             )}
           </div>
@@ -122,5 +124,3 @@ export const MovieData: React.FC = () => {
     </div>
   );
 };
-
-// ... (rest of your code)

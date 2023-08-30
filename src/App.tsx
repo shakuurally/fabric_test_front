@@ -1,14 +1,17 @@
 import { Provider } from 'react-redux';
 import { MovieData } from './components/Movie';
-import { store } from './store';
+import { persistor, store } from './store'; // Change this line
+import { PersistGate } from 'redux-persist/integration/react';
 
 function App() {
   return (
     <div className="App">
       <Provider store={store}>
-        <MovieData />
-      </Provider>
+        <PersistGate loading={null} persistor={persistor}>
 
+          <MovieData />
+        </PersistGate>
+      </Provider>
 
     </div>
   );

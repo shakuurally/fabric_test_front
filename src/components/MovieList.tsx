@@ -20,16 +20,18 @@ const MovieList: React.FC<MovieListProps> = ({ data, loading }) => {
   }, [loading, controls]);
 
   return (
-
-
-    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 w-full">
-      {data &&
+    <>    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 w-full">
+      {loading ? ( // Display a loading indicator while loading is true
+        <div className="w-full text-center">
+          <p>Loading...</p>
+        </div>
+      ) : data ? (
         data.map((movie, index) => (
           <motion.div
             key={movie.imdbID}
             initial={{ opacity: 0, y: 20 }}
             animate={controls}
-            transition={animationVariants} // Define animation variants
+            transition={animationVariants}
             className="relative mx-auto w-full"
           >
             <div className="relative inline-block duration-300 ease-in-out transition-transform transform hover:-translate-y-2 w-full" key={movie.imdbID}>
@@ -75,9 +77,16 @@ const MovieList: React.FC<MovieListProps> = ({ data, loading }) => {
               </div>
             </div>
           </motion.div>
-        ))}
-
+        ))
+      ) : (
+        // Handle the case when data is null (no data found)
+        <div className="w-full text-center">
+          <p>No data found...</p>
+        </div>
+      )}
     </div>
+    </>
+
   );
 };
 
@@ -87,3 +96,4 @@ const animationVariants: Variants = {
 };
 
 export default MovieList;
+
