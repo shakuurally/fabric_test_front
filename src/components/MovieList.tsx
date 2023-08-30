@@ -3,7 +3,6 @@ import { motion, useAnimation, Variants } from "framer-motion";
 import { Movie } from "../interface";
 import { VideoOff } from "lucide-react";
 
-// Defining the props for the MovieList component
 interface MovieListProps {
   data: Movie[] | null;
   loading: boolean;
@@ -11,17 +10,20 @@ interface MovieListProps {
 }
 
 const MovieList: React.FC<MovieListProps> = ({ data, loading }) => {
+  // Create the animation controls object outside of useEffect
   const controls = useAnimation();
 
+  // Trigger the animation when loading or data changes
   useEffect(() => {
+    // Ensure the animation starts when loading is false
     if (!loading) {
       controls.start({ opacity: 1 });
     }
-  }, [loading, controls]);
+  }, [loading, data, controls]); // Include data as a dependency
 
   return (
-    <>    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 w-full">
-      {loading ? ( // Display a loading indicator while loading is true
+    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 w-full">
+      {loading ? (
         <div className="w-full text-center">
           <p>Loading...</p>
         </div>
@@ -30,7 +32,7 @@ const MovieList: React.FC<MovieListProps> = ({ data, loading }) => {
           <motion.div
             key={movie.imdbID}
             initial={{ opacity: 0, y: 20 }}
-            animate={controls}
+            animate={controls} // Pass the controls to the animate prop
             transition={animationVariants}
             className="relative mx-auto w-full"
           >
@@ -79,14 +81,11 @@ const MovieList: React.FC<MovieListProps> = ({ data, loading }) => {
           </motion.div>
         ))
       ) : (
-        // Handle the case when data is null (no data found)
         <div className="w-full text-center">
           <p>No data found...</p>
         </div>
       )}
     </div>
-    </>
-
   );
 };
 
@@ -96,4 +95,3 @@ const animationVariants: Variants = {
 };
 
 export default MovieList;
-

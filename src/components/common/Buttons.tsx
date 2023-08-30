@@ -1,9 +1,7 @@
-// ... (previous code)
 
-// Button Group Component
 interface ButtonGroupProps {
-    activeButton: string | undefined; // Define the type of activeButton prop
-    handleButtonClick: (button: string) => void;
+    activeButton: string | undefined;
+    handleButtonClick: (button: string, data?: []) => void;
 }
 
 export const ButtonGroup: React.FC<ButtonGroupProps> = ({ activeButton, handleButtonClick }) => {
@@ -13,7 +11,7 @@ export const ButtonGroup: React.FC<ButtonGroupProps> = ({ activeButton, handleBu
                 className={`tabs-item relative z-10 py-1 my-2 ml-2 text-center rounded-md w-full text-sm cursor-pointer select-none focus:outline-none ${activeButton === "login" ? "active" : ""
                     }`}
                 onClick={() => {
-                    handleButtonClick("login");
+                    handleButtonClick("login",);
                 }}
             >
                 Fetch Data 1

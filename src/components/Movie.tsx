@@ -3,7 +3,7 @@ import MovieList from "./MovieList";
 import { FilterComponent } from "./common/Filter";
 import { ButtonGroup } from "./common/Buttons";
 import { Movie } from "../interface";
-import Loader from "./common/Grid";
+import Loader from "./common/Loader";
 import { useDispatch, useSelector } from "react-redux";
 import { setActiveButton, setData, setLoading } from "../store/movieSlice";
 
@@ -59,18 +59,26 @@ export const MovieData: React.FC = () => {
   }, []);
 
   // Function to filter data
+  // Function to filter data
   const filterData = (data: Movie[] | null) => {
     if (!data) return null;
 
-    return data.filter((movie: { title: string; Type: string; }) => {
-      return (
-        movie.title &&
-        movie.Type &&
-        movie.title.toLowerCase().includes(state.filterTitle.toLowerCase()) &&
-        movie.Type.toLowerCase().includes(state.filterType.toLowerCase())
-      );
-    });
+    // Check if either filterTitle or filterType is not empty
+    if (state.filterTitle || state.filterType) {
+      return data.filter((movie: { title: string; Type: string; }) => {
+        return (
+          movie.title &&
+          movie.Type &&
+          movie.title.toLowerCase().includes(state.filterTitle.toLowerCase()) &&
+          movie.Type.toLowerCase().includes(state.filterType.toLowerCase())
+        );
+      });
+    } else {
+      // If both filterTitle and filterType are empty, return the full data
+      return data;
+    }
   };
+
 
   // Update the filtered data whenever filter inputs change or data source changes
   const filteredData = filterData(state.filterTitle || state.filterType ? data.data : data.data);
