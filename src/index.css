@@ -5,21 +5,30 @@
 .tab-item-animate {
   position: absolute;
   top: 6px;
-  left: 6px;
+  right: 6px;
   width: calc(100% - 12px);
   height: 32px;
   transform-origin: 0 0;
   transition: transform 0.25s;
 }
 
+/* Button 1 */
+/* Button 1 */
 .tabs .tabs-item:first-child.active ~ .tab-item-animate {
-  transform: translateX(0) scaleX(0.33); /* Adjust the scaleX value for the first button */
+  transform: translateX(0) scaleX(0.25); /* Adjust the scaleX value for the first button */
 }
 
+/* Button 2 */
 .tabs .tabs-item:nth-child(2).active ~ .tab-item-animate {
-  transform: translateX(33.33%) scaleX(0.33); /* Adjust the scaleX value and translateX for the second button */
+  transform: translateX(25%) scaleX(0.25); /* Adjust the translateX value for the second button */
 }
 
+/* Button 3 */
 .tabs .tabs-item:nth-child(3).active ~ .tab-item-animate {
-  transform: translateX(66.66%) scaleX(0.33); /* Adjust the scaleX value and translateX for the third button */
+  transform: translateX(50%) scaleX(0.25); /* Adjust the translateX value for the third button */
+}
+
+/* Button 4 */
+.tabs .tabs-item:nth-child(4).active ~ .tab-item-animate {
+  transform: translateX(75%) scaleX(0.25); /* Adjust the translateX value for the fourth button */
 }

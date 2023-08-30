@@ -23,12 +23,13 @@ export const MovieData: React.FC = () => {
   const dispatch = useDispatch();
   const fetchData = async (url: string, button: string) => {
     try {
+      dispatch(setActiveButton(button));
+
       dispatch(setLoading(true));
       const response = await fetch(url);
       const result = await response.json();
       dispatch(setData(result.data || null));
       dispatch(setLoading(false));
-      dispatch(setActiveButton(button));
 
     } catch (error) {
       console.error("Error fetching data:", error);
@@ -48,12 +49,16 @@ export const MovieData: React.FC = () => {
       case "revolutions":
         url = "https://fabric.up.railway.app/api/movies/fetch-matrix-revolutions";
         break;
+      case "All movies":
+        url = "https://fabric.up.railway.app/api/movies/fetch-all";
+        break;
       default:
         break;
     }
 
     fetchData(url, button);
   };
+
   useEffect(() => {
     handleButtonClick("matrix");
   }, []);

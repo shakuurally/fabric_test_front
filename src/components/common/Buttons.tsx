@@ -1,40 +1,42 @@
+import React from 'react';
 
+interface ButtonProps {
+    buttonLabel: string;
+    isActive: boolean;
+    onClick: () => void;
+}
 interface ButtonGroupProps {
     activeButton: string | undefined;
     handleButtonClick: (button: string, data?: []) => void;
 }
 
+
 export const ButtonGroup: React.FC<ButtonGroupProps> = ({ activeButton, handleButtonClick }) => {
     return (
-        <div className="flex mx-1 md:mx-10 mt-2 mb-4 rounded-md bg-gray-100 relative tabs">
-            <button
-                className={`tabs-item relative z-10 py-1 my-2 ml-2 text-center rounded-md w-full text-sm cursor-pointer select-none focus:outline-none ${activeButton === "matrix" ? "active" : ""
-                    }`}
-                onClick={() => {
-                    handleButtonClick("matrix",);
-                }}
-            >
-                Fetch Data 1
-            </button>
+        <div className="flex mx-1 md:mx-10 mt-2 mb-4 rounded-md bg-gray-100 relative tabs overflow-x-scroll">
+            <Button
+                buttonLabel="Matrix"
+                isActive={activeButton === "matrix"}
+                onClick={() => handleButtonClick("matrix")}
+            />
 
-            <button
-                className={`tabs-item w-full relative z-10 py-1 my-2 ml-2 text-center rounded-md text-sm cursor-pointer select-none focus:outline-none ${activeButton === "reloaded" ? "active" : ""
-                    }`}
-                onClick={() => {
-                    handleButtonClick("reloaded");
-                }}
-            >
-                Fetch Data 2
-            </button>
-            <button
-                className={`tabs-item w-full relative z-10 py-1 my-2 ml-2 text-center rounded-md text-sm cursor-pointer select-none focus:outline-none ${activeButton === "revolutions" ? "active" : ""
-                    }`}
-                onClick={() => {
-                    handleButtonClick("revolutions");
-                }}
-            >
-                Fetch Data 3
-            </button>
+            <Button
+                buttonLabel="Reloaded"
+                isActive={activeButton === "reloaded"}
+                onClick={() => handleButtonClick("reloaded")}
+            />
+
+            <Button
+                buttonLabel="Revolutions"
+                isActive={activeButton === "revolutions"}
+                onClick={() => handleButtonClick("revolutions")}
+            />
+
+            <Button
+                buttonLabel="All Movies"
+                isActive={activeButton === "All movies"}
+                onClick={() => handleButtonClick("All movies")}
+            />
 
             <span
                 className={`tab-item-animate rounded-md bg-white ${activeButton === "matrix"
@@ -46,5 +48,16 @@ export const ButtonGroup: React.FC<ButtonGroupProps> = ({ activeButton, handleBu
             ></span>
         </div>
     );
-}
+};
 
+
+const Button: React.FC<ButtonProps> = ({ buttonLabel, isActive, onClick }) => {
+    return (
+        <button
+            className={`tabs-item relative z-10 py-1 my-2 truncate ml-2 text-center rounded-md w-full text-sm cursor-pointer select-none focus:outline-none ${isActive ? "active" : ""}`}
+            onClick={onClick}
+        >
+            {buttonLabel}
+        </button>
+    );
+};
