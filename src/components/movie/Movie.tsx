@@ -1,11 +1,11 @@
 import React, { useState, useEffect } from "react";
 import MovieList from "./MovieList";
-import { FilterComponent } from "./common/Filter";
-import { ButtonGroup } from "./common/Buttons";
-import { Movie } from "../interface";
-import Loader from "./common/Loader";
+import { FilterComponent } from "../common/Filter";
+import { ButtonGroup } from "../common/Buttons";
+import Loader from "../common/Loader";
 import { useDispatch, useSelector } from "react-redux";
-import { setActiveButton, setData, setLoading } from "../store/movieSlice";
+import { setActiveButton, setData, setLoading } from "../../store/movieSlice";
+import { Movie } from "../../interface";
 
 interface MovieDataState {
   filterTitle: string;

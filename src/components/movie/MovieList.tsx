@@ -1,6 +1,6 @@
 import React, { useEffect } from "react";
 import { motion, useAnimation, Variants } from "framer-motion";
-import { Movie } from "../interface";
+import { Movie } from "../../interface";
 import { VideoOff } from "lucide-react";
 
 interface MovieListProps {
