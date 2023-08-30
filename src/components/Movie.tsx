@@ -39,13 +39,13 @@ export const MovieData: React.FC = () => {
   const handleButtonClick = (button: string) => {
     let url = "";
     switch (button) {
-      case "login":
+      case "matrix":
         url = "https://fabric.up.railway.app/api/movies/fetch-matrix";
         break;
-      case "signup":
+      case "reloaded":
         url = "https://fabric.up.railway.app/api/movies/fetch-matrix-reloaded";
         break;
-      case "premium":
+      case "revolutions":
         url = "https://fabric.up.railway.app/api/movies/fetch-matrix-revolutions";
         break;
       default:
@@ -55,7 +55,7 @@ export const MovieData: React.FC = () => {
     fetchData(url, button);
   };
   useEffect(() => {
-    handleButtonClick("login");
+    handleButtonClick("matrix");
   }, []);
 
   // filter data

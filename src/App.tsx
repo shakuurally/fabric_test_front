@@ -4,14 +4,15 @@ import store from './store';
 
 function App() {
   return (
-    <div className="App">
+    <Provider store={store}>
+
+      <div className="App">
 
 
-      <Provider store={store}>
         <MovieData />
-      </Provider>
 
-    </div>
+
+      </div> </Provider>
   );
 }
 
