@@ -32,7 +32,7 @@ export const FilterComponent: React.FC<{
                         >
                             <option value="">Filter by Type</option>
                             <option value="movie">Movie</option>
-                            <option value="game">Series</option>
+                            <option value="game">Game</option>
                         </select>
                     </motion.div>
                 </span>
