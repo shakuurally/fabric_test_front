@@ -28,12 +28,9 @@ export const ButtonClickFetch = async (button: string, dispatch: any) => {
         dispatch(setLoading(true));
 
         const response = await fetch(apiUrlRoot + apiEndpoints[button]);
-
         const result = await response.json();
-        console.log(result)
         dispatch(setData(result.data || null));
         dispatch(setLoading(false));
-
     } catch (error) {
         console.error("Error fetching data:", error);
     }
