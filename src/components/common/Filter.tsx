@@ -1,12 +1,8 @@
 import { Search } from "lucide-react";
 import { motion } from "framer-motion";
+import { FilterComponentProps } from "../../interface";
 
-export const FilterComponent: React.FC<{
-    filterTitle: string;
-    filterType: string;
-    setFilterTitle: (value: string) => void;
-    setFilterType: (value: string) => void;
-}> = ({ filterTitle, filterType, setFilterTitle, setFilterType }) => {
+export const FilterComponent: React.FC<FilterComponentProps> = ({ filterTitle, filterType, setFilterTitle, setFilterType }) => {
     return (
         <div className="flex flex-col space-y-4 py-10 ">
             <div className="group relative flex focus:outline-none">

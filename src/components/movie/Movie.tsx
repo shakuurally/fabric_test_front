@@ -9,7 +9,6 @@ import { useEffect } from "react";
 
 
 export const MovieData: React.FC = () => {
-
   const data = useSelector((state: any) => state.movie);
   const dispatch = useDispatch();
 

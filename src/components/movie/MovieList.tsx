@@ -1,25 +1,18 @@
 import React, { useEffect } from "react";
 import { motion, useAnimation, Variants } from "framer-motion";
-import { Movie } from "../../interface";
+import { MovieListProps } from "../../interface";
 import { VideoOff } from "lucide-react";
 
-interface MovieListProps {
-  data: Movie[] | null;
-  loading: boolean;
-  activeButton?: string;
-}
+
 
 const MovieList: React.FC<MovieListProps> = ({ data, loading }) => {
-  // Create the animation controls object outside of useEffect
   const controls = useAnimation();
 
-  // Trigger the animation when loading or data changes
   useEffect(() => {
-    // Ensure the animation starts when loading is false
     if (!loading) {
       controls.start({ opacity: 1 });
     }
-  }, [loading, data, controls]); // Include data as a dependency
+  }, [loading, data, controls]);
 
   return (
     <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 w-full">
