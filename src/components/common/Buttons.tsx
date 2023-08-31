@@ -12,6 +12,8 @@ interface ButtonGroupProps {
 
 
 export const ButtonGroup: React.FC<ButtonGroupProps> = ({ activeButton, handleButtonClick }) => {
+    console.log(activeButton)
+
     return (
         <div className="flex mx-1 md:mx-10 mt-2 mb-4 rounded-md bg-gray-100 relative tabs overflow-x-scroll">
             <Button
@@ -33,9 +35,9 @@ export const ButtonGroup: React.FC<ButtonGroupProps> = ({ activeButton, handleBu
             />
 
             <Button
-                buttonLabel="All Movies"
-                isActive={activeButton === "All movies"}
-                onClick={() => handleButtonClick("All movies")}
+                buttonLabel="allMovies"
+                isActive={activeButton === "allMovies"}
+                onClick={() => handleButtonClick("allMovies")}
             />
 
             <span

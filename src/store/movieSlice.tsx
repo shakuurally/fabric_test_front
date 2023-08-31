@@ -4,8 +4,9 @@ const initialState = {
   data: null,
   loading: false,
   activeButton: "",
+  filterTitle: "",
+  filterType: "",
 };
-
 const movieSlice = createSlice({
   name: "movie",
   initialState,
@@ -19,8 +20,14 @@ const movieSlice = createSlice({
     setActiveButton: (state, action) => {
       state.activeButton = action.payload;
     },
+    setFilterTitle: (state, action) => {
+      state.filterTitle = action.payload;
+    },
+    setFilterType: (state, action) => {
+      state.filterType = action.payload;
+    },
   },
 });
 
-export const { setData, setLoading, setActiveButton } = movieSlice.actions;
+export const { setData, setLoading, setActiveButton, setFilterTitle, setFilterType } = movieSlice.actions;
 export default movieSlice.reducer;
