@@ -6,6 +6,7 @@ import { VideoOff } from "lucide-react";
 
 
 const MovieList: React.FC<MovieListProps> = ({ data, loading }) => {
+  console.log(data)
   const controls = useAnimation();
 
   useEffect(() => {
